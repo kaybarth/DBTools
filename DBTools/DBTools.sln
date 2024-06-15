@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32929.386
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBTools", "DBTools\DBTools.csproj", "{9183AD62-A255-4A23-B666-20F7503470F4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PruebasDBTools", "PruebasDBTools\PruebasDBTools.csproj", "{F7EFE1E2-F3BF-4ECA-BF48-8B06D87AEFF0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9183AD62-A255-4A23-B666-20F7503470F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9183AD62-A255-4A23-B666-20F7503470F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9183AD62-A255-4A23-B666-20F7503470F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9183AD62-A255-4A23-B666-20F7503470F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F7EFE1E2-F3BF-4ECA-BF48-8B06D87AEFF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7EFE1E2-F3BF-4ECA-BF48-8B06D87AEFF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7EFE1E2-F3BF-4ECA-BF48-8B06D87AEFF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7EFE1E2-F3BF-4ECA-BF48-8B06D87AEFF0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9CC66B9C-5446-4195-8557-B77DBB67919D}
+	EndGlobalSection
+EndGlobal

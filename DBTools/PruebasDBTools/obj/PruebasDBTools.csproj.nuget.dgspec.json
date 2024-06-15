@@ -1,0 +1,60 @@
+{
+  "format": 1,
+  "restore": {
+    "E:\\Proyectos\\Visual Studio\\dbtools\\DBTools\\PruebasDBTools\\PruebasDBTools.csproj": {}
+  },
+  "projects": {
+    "E:\\Proyectos\\Visual Studio\\dbtools\\DBTools\\PruebasDBTools\\PruebasDBTools.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "E:\\Proyectos\\Visual Studio\\dbtools\\DBTools\\PruebasDBTools\\PruebasDBTools.csproj",
+        "projectName": "PruebasDBTools",
+        "projectPath": "E:\\Proyectos\\Visual Studio\\dbtools\\DBTools\\PruebasDBTools\\PruebasDBTools.csproj",
+        "packagesPath": "C:\\Users\\kaybarth\\.nuget\\packages\\",
+        "outputPath": "E:\\Proyectos\\Visual Studio\\dbtools\\DBTools\\PruebasDBTools\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\kaybarth\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net48"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net48": {
+            "targetAlias": "net48",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net48": {
+          "targetAlias": "net48",
+          "dependencies": {
+            "Microsoft.NET.Test.Sdk": {
+              "target": "Package",
+              "version": "[16.5.0, )"
+            },
+            "NUnit": {
+              "target": "Package",
+              "version": "[3.12.0, )"
+            },
+            "NUnit3TestAdapter": {
+              "target": "Package",
+              "version": "[3.16.1, )"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.413\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

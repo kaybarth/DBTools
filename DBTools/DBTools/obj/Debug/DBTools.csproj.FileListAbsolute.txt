@@ -1,0 +1,11 @@
+E:\Proyectos\Visual Studio\dbtools\DBTools\DBTools\obj\Debug\DBTools.csproj.AssemblyReference.cache
+E:\Proyectos\Visual Studio\dbtools\DBTools\DBTools\obj\Debug\DBTools.DataEntry.resources
+E:\Proyectos\Visual Studio\dbtools\DBTools\DBTools\obj\Debug\DBTools.Home.resources
+E:\Proyectos\Visual Studio\dbtools\DBTools\DBTools\obj\Debug\DBTools.Properties.Resources.resources
+E:\Proyectos\Visual Studio\dbtools\DBTools\DBTools\obj\Debug\DBTools.csproj.GenerateResource.cache
+E:\Proyectos\Visual Studio\dbtools\DBTools\DBTools\obj\Debug\DBTools.csproj.CoreCompileInputs.cache
+E:\Proyectos\Visual Studio\dbtools\DBTools\DBTools\bin\Debug\DBTools.exe.config
+E:\Proyectos\Visual Studio\dbtools\DBTools\DBTools\bin\Debug\DBTools.exe
+E:\Proyectos\Visual Studio\dbtools\DBTools\DBTools\bin\Debug\DBTools.pdb
+E:\Proyectos\Visual Studio\dbtools\DBTools\DBTools\obj\Debug\DBTools.exe
+E:\Proyectos\Visual Studio\dbtools\DBTools\DBTools\obj\Debug\DBTools.pdb

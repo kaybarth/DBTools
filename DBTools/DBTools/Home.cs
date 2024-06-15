@@ -1,0 +1,172 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace DBTools
+{
+    public partial class Home : Form
+    {
+        private List<Servers> serversList = new List<Servers>();
+        private ContextMenuStrip serverMenu;
+        public Home()
+        {
+            InitializeComponent();
+        }
+        private void Home_Load(object sender, EventArgs e)
+        {
+            // Cargar servidores al iniciar la aplicación
+            serversList = Servers.LoadServers();
+
+            // Agrega accion de doble click al item
+            connectionsList.DoubleClick += connectionsList_DoubleClick;
+            connectionsList.MouseClick  += connectionsList_MouseClick;
+            connectionsList.LargeImageList = iconsList;
+            // Crea el menu contextual del servidor
+            serverMenu = new ContextMenuStrip();
+            serverMenu.Items.Add("Editar",          null, Editar_Click);
+            serverMenu.Items.Add("Eliminar",        null, Eliminar_Click);
+            serverMenu.Items.Add("Detalles",        null, Detail_Click);
+            serverMenu.Items.Add("Probar conexión", null, TestConnection_Click);
+
+            // Mostrar los servidores en el ListView
+            foreach (Servers server in serversList)
+            {
+                Servers ServerItem = new Servers(server.Id);
+                // Agrega el objeto al listview
+                displayServerIcon(server);
+                
+            }
+        }
+        private void displayServerIcon(Servers server)
+        {
+            ListViewItem newItem = new ListViewItem(server.Id + "-" + server.Name, "db");
+            newItem.Tag = server;
+            // Agrega el objeto al listview
+            connectionsList.Items.Add(newItem);
+            _ = UpdateConnectionStatus(newItem);
+        }
+
+        public async Task UpdateConnectionStatus(ListViewItem item)
+        {
+            item.ImageKey = "db";
+            var server = (Servers)item.Tag;
+            var response = await Servers.TestConnection(server);
+            string img = response.status ? "db_ok" : "db_error";
+            item.ImageKey = img;
+            server.ConnectionStatus = response.status;
+            item.Tag = server;
+        }
+        private void Home_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Servers.Save(serversList);
+        }
+        private void btnSaveConnection_Click(object sender, EventArgs e)
+        {
+            DataEntry entryForm = new DataEntry();
+            if (entryForm.ShowDialog() == DialogResult.OK)
+            {
+                Servers itemData = entryForm.ServerItem;
+                if (itemData != null)
+                {
+                    //Servers newServer = new Servers(itemData.Name, itemData.Ip, itemData.Port, itemData.User, itemData.Password);
+                    serversList.Add(itemData);
+                    Servers.Save(serversList);
+                    displayServerIcon(itemData);
+                }
+            }
+        }
+        private void connectionsList_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                var selectedItem = connectionsList.HitTest(e.Location)?.Item;
+                if (selectedItem != null)
+                {
+                    serverMenu.Show(connectionsList, e.Location);
+                }
+            }
+        }
+        private void connectionsList_DoubleClick(object sender, EventArgs e)
+        {
+            ListViewItem selectedItem = connectionsList.SelectedItems[0];
+            if (((Servers)selectedItem.Tag).ConnectionStatus == false )
+            {
+                MessageBox.Show("No hay conexión con el servidor, no es posible iniciar SQL management studio", "Error de conexión");
+                return;
+            }
+            DialogResult result = MessageBox.Show("¿Iniciar conexión con SQL management studio?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            // Verificar si se ha seleccionado un elemento
+            if (connectionsList.SelectedItems.Count > 0 && result == DialogResult.Yes)
+            {
+                Servers server = serversList.Find(s => s.Name == selectedItem.Text);
+                //StartSSMS(server.Ip, server.Port, server.User, server.Password);
+            }
+        }
+        private void TestConnection_Click(object sender, EventArgs e)
+        {
+            if (connectionsList.SelectedItems.Count > 0)
+            {
+                ListViewItem selectedItem = connectionsList.SelectedItems[0];
+                _ = UpdateConnectionStatus(selectedItem);
+            }
+        }
+        private void Editar_Click(object sender, EventArgs e)
+        {
+            // Lógica para editar el elemento seleccionado
+            if (connectionsList.SelectedItems.Count > 0)
+            {
+                ListViewItem selectedItem = connectionsList.SelectedItems[0];
+                Servers server = (Servers)selectedItem.Tag;
+                Servers actualServer = serversList.Find(s => s.Id == server.Id);
+                DataEntry entryForm = new DataEntry(actualServer);
+                if (entryForm.ShowDialog() == DialogResult.OK)
+                {
+                    Servers itemData = entryForm.ServerItem;
+                    if (itemData != null)
+                    {
+                        selectedItem.Text = (itemData.Id + "-" + itemData.Name);
+                        selectedItem.Tag = itemData;
+                        _ = UpdateConnectionStatus(selectedItem);
+                    }
+                }
+            }
+        }
+        private void Eliminar_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("¿Estás seguro eliminar este servidor?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (connectionsList.SelectedItems.Count > 0 && result == DialogResult.Yes)
+            {
+                ListViewItem selectedItem = connectionsList.SelectedItems[0];
+                Servers server = (Servers)selectedItem.Tag;
+
+                Servers serverToDelete = serversList.Find(s => s.Id == server.Id);
+                serversList.Remove(serverToDelete);
+                connectionsList.Items.Remove(selectedItem);
+            }
+        }
+
+        private void Detail_Click(object sender, EventArgs e)
+        {
+            // Lógica para mostrar detalles del elemento seleccionado
+            if (connectionsList.SelectedItems.Count > 0)
+            {
+                ListViewItem selectedItem = connectionsList.SelectedItems[0];
+                Servers server = (Servers)selectedItem.Tag;
+                Servers actualServer = serversList.Find(s => s.Id == server.Id);
+                DataEntry entryForm = new DataEntry(actualServer, "ver");
+                entryForm.Show();
+            }
+        }
+
+        private void connectionsList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+    }
+}

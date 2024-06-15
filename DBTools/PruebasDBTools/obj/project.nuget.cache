@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "0cpM+rRAV4mqqilbZiDRXcDrbm0grxtnYl9/WDJlY34bNKeGS81wxZlieF+AYbavTmN99kxn/bJGy+rrdtcNrA==",
+  "success": true,
+  "projectFilePath": "E:\\Proyectos\\Visual Studio\\dbtools\\DBTools\\PruebasDBTools\\PruebasDBTools.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\kaybarth\\.nuget\\packages\\microsoft.codecoverage\\16.5.0\\microsoft.codecoverage.16.5.0.nupkg.sha512",
+    "C:\\Users\\kaybarth\\.nuget\\packages\\microsoft.net.test.sdk\\16.5.0\\microsoft.net.test.sdk.16.5.0.nupkg.sha512",
+    "C:\\Users\\kaybarth\\.nuget\\packages\\nunit\\3.12.0\\nunit.3.12.0.nupkg.sha512",
+    "C:\\Users\\kaybarth\\.nuget\\packages\\nunit3testadapter\\3.16.1\\nunit3testadapter.3.16.1.nupkg.sha512"
+  ],
+  "logs": []
+}
