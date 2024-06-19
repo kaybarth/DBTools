@@ -35,8 +35,9 @@ namespace DBTools
             this.topMenu = new System.Windows.Forms.MenuStrip();
             this.OptionBarOptions = new System.Windows.Forms.ToolStripMenuItem();
             this.btnSaveConnection = new System.Windows.Forms.ToolStripMenuItem();
-            this.iconsList = new System.Windows.Forms.ImageList(this.components);
             this.btnImportConections = new System.Windows.Forms.ToolStripMenuItem();
+            this.iconsList = new System.Windows.Forms.ImageList(this.components);
+            this.importCSVConnections = new System.Windows.Forms.OpenFileDialog();
             this.topMenu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -77,6 +78,13 @@ namespace DBTools
             this.btnSaveConnection.Text = "Agregar conexion";
             this.btnSaveConnection.Click += new System.EventHandler(this.btnSaveConnection_Click);
             // 
+            // btnImportConections
+            // 
+            this.btnImportConections.Name = "btnImportConections";
+            this.btnImportConections.Size = new System.Drawing.Size(183, 22);
+            this.btnImportConections.Text = "Importar conexiones";
+            this.btnImportConections.Click += new System.EventHandler(this.btnImportConections_Click);
+            // 
             // iconsList
             // 
             this.iconsList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("iconsList.ImageStream")));
@@ -85,11 +93,9 @@ namespace DBTools
             this.iconsList.Images.SetKeyName(1, "db_ok");
             this.iconsList.Images.SetKeyName(2, "db_error");
             // 
-            // btnImportConections
+            // importCSVConnections
             // 
-            this.btnImportConections.Name = "btnImportConections";
-            this.btnImportConections.Size = new System.Drawing.Size(183, 22);
-            this.btnImportConections.Text = "Importar conexiones";
+            this.importCSVConnections.Filter = "CSV|*.csv";
             // 
             // Home
             // 
@@ -119,6 +125,7 @@ namespace DBTools
         private System.Windows.Forms.ToolStripMenuItem btnSaveConnection;
         private System.Windows.Forms.ImageList iconsList;
         private System.Windows.Forms.ToolStripMenuItem btnImportConections;
+        private System.Windows.Forms.OpenFileDialog importCSVConnections;
     }
 }
 

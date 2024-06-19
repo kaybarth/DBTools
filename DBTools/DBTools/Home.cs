@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.VisualBasic.FileIO;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -74,12 +75,15 @@ namespace DBTools
                 Servers itemData = entryForm.ServerItem;
                 if (itemData != null)
                 {
-                    //Servers newServer = new Servers(itemData.Name, itemData.Ip, itemData.Port, itemData.User, itemData.Password);
-                    serversList.Add(itemData);
-                    Servers.Save(serversList);
-                    displayServerIcon(itemData);
+                    addConnection(itemData);
                 }
             }
+        }
+        private void addConnection(Servers server)
+        {
+            serversList.Add(server);
+            Servers.Save(serversList);
+            displayServerIcon(server);
         }
         private void connectionsList_MouseClick(object sender, MouseEventArgs e)
         {
@@ -167,6 +171,67 @@ namespace DBTools
         private void connectionsList_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnImportConections_Click(object sender, EventArgs e)
+        {
+            if (importCSVConnections.ShowDialog() == DialogResult.OK)
+            {
+                // Obtener la ruta del archivo seleccionada
+                string filePath = importCSVConnections.FileName;
+                // Leer y procesar el archivo CSV
+                ProcessCsvFile(filePath);
+            }
+        }
+        private void ProcessCsvFile(string filePath)
+        {
+            try
+            {
+                using (TextFieldParser parser = new TextFieldParser(filePath))
+                {
+                    parser.TextFieldType = FieldType.Delimited;
+                    parser.SetDelimiters(",");
+                    // Leer la primera línea para obtener los títulos de las columnas
+                    string[] columnTitles = parser.ReadFields();
+                    while (!parser.EndOfData)
+                    {
+                        // Dividir la línea en columnas
+                        string[] values = parser.ReadFields();
+                        // Crear un diccionario para almacenar los valores de las columnas
+                        var columnValues = new Dictionary<string, string>();
+                        // Procesar cada columna
+                        for (int i = 0; i < values.Length; i++)
+                        {
+                            columnValues[columnTitles[i]] = values[i];
+                        }
+                        // Verificar que los campos requeridos estén presentes
+                        if (columnValues.TryGetValue("nombre", out string name) && !string.IsNullOrWhiteSpace(name) &&
+                            columnValues.TryGetValue("host", out string host) && !string.IsNullOrWhiteSpace(host) &&
+                            columnValues.TryGetValue("usuario", out string username) && !string.IsNullOrWhiteSpace(username) &&
+                            columnValues.TryGetValue("clave", out string password) && !string.IsNullOrWhiteSpace(password))
+                        {
+                            string port = columnValues.TryGetValue("puerto", out string p) ? p : "";
+
+                            // Verificar si el objeto con la combinación de host y port ya existe
+                            if (!serversList.Exists(s => s.Ip == host && s.Port == port))
+                            {
+                                // Crear el objeto Servers usando los valores del diccionario
+                                Servers server = new Servers(name, host, port, username, password);
+                                addConnection(server);
+                            }
+                            else
+                            {
+                                Servers server = serversList.Find(s => s.Ip == host && s.Port == port);
+                                MessageBox.Show($"La conexión {server.Name}:{server.Ip},{server.Port} ya se encuentra registrada", "Conexión ya registrada");
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al leer el archivo CSV: " + ex.Message);
+            }
         }
     }
 }

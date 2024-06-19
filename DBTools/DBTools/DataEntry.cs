@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace DBTools
@@ -28,17 +23,23 @@ namespace DBTools
             toolTip = new ToolTip();
             if (ServerItem != null)
             {
-                txtName.Text        = ServerItem.Name;
-                txtIp.Text          = ServerItem.Ip;
-                txtPort.Text        = ServerItem.Port;
-                txtUser.Text        = ServerItem.User;
-                txtPassword.Text    = ServerItem.Password;
+                txtName.Text = ServerItem.Name;
+                txtIp.Text = ServerItem.Ip;
+                txtPort.Text = ServerItem.Port;
+                txtUser.Text = ServerItem.User;
+                txtPassword.Text = ServerItem.Password;
 
                 if (accion == "ver")
                 {
                     var textboxes = new TextBox[] { txtName, txtIp, txtPort, txtUser, txtPassword };
                     foreach (var textbox in textboxes) { textbox.ReadOnly = true; }
                 }
+            }
+            else
+            {
+                btnCopyHost.Visible = false;
+                btnCopyPassword.Visible = false;
+                btnCopyUser.Visible = false;
             }
         }
         private void DataEntry_Load(object sender, EventArgs e)
@@ -51,10 +52,10 @@ namespace DBTools
             var missingFields = new List<string>();
             string PortPattern = @"\d{4}$";
 
-            string name     = txtName.Text;
-            string ip       = txtIp.Text;
-            string port     = txtPort.Text;
-            string user     = txtUser.Text;
+            string name = txtName.Text;
+            string ip = txtIp.Text;
+            string port = txtPort.Text;
+            string user = txtUser.Text;
             string password = txtPassword.Text;
 
             if (string.IsNullOrWhiteSpace(name))
@@ -82,10 +83,10 @@ namespace DBTools
             }
             if (ServerItem != null)
             {
-                ServerItem.Name     = txtName.Text;
-                ServerItem.Ip       = txtIp.Text;
-                ServerItem.Port     = txtPort.Text;
-                ServerItem.User     = txtUser.Text;
+                ServerItem.Name = txtName.Text;
+                ServerItem.Ip = txtIp.Text;
+                ServerItem.Port = txtPort.Text;
+                ServerItem.User = txtUser.Text;
                 ServerItem.Password = txtPassword.Text;
             }
             else
@@ -107,11 +108,53 @@ namespace DBTools
             }
             if (!string.IsNullOrWhiteSpace(txtPort.Text))
             {
-                fullServer += ":" + txtPort.Text;
+                fullServer += "," + txtPort.Text;
             }
             Clipboard.SetText(fullServer);
             toolTip.Show("Copied to clipboard", btnCopyHost, 2000);
             toolTip.Hide(btnCopyHost);
+        }
+
+        private void btnCopyUser_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtUser.Text))
+            {
+                toolTip.Show("No hay nada que copiar", btnCopyUser, 2000);
+                toolTip.Hide(btnCopyUser);
+                return;
+            }
+            Clipboard.SetText(txtUser.Text);
+            toolTip.Show("Copied to clipboard", btnCopyUser, 2000);
+            toolTip.Hide(btnCopyUser);
+        }
+
+        private void btnCopyPassword_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtPassword.Text))
+            {
+                toolTip.Show("No hay nada que copiar", btnCopyPassword, 2000);
+                toolTip.Hide(btnCopyPassword);
+                return;
+            }
+            Clipboard.SetText(txtPassword.Text);
+            toolTip.Show("Copied to clipboard", btnCopyPassword, 2000);
+            toolTip.Hide(btnCopyPassword);
+        }
+
+        private async void btnTestConnection_Click(object sender, EventArgs e)
+        {
+            Servers testServer = new Servers(txtName.Text, txtIp.Text, txtPort.Text, txtUser.Text, txtPassword.Text);
+
+            var response = await Servers.TestConnection(testServer);
+            if (response.status)
+            {
+                MessageBox.Show("Conexión exitosa", "Conexión exitosa");
+            }
+            else
+            {
+                MessageBox.Show($"{response.msj}", "Error de conexión");
+            }
+            testServer = null;
         }
     }
 }
