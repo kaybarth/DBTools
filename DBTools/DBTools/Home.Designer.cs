@@ -38,6 +38,9 @@ namespace DBTools
             this.btnImportConections = new System.Windows.Forms.ToolStripMenuItem();
             this.iconsList = new System.Windows.Forms.ImageList(this.components);
             this.importCSVConnections = new System.Windows.Forms.OpenFileDialog();
+            this.configuracionesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnConfigManagement = new System.Windows.Forms.ToolStripMenuItem();
+            this.setManagementRoute = new System.Windows.Forms.OpenFileDialog();
             this.topMenu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -55,7 +58,8 @@ namespace DBTools
             // topMenu
             // 
             this.topMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.OptionBarOptions});
+            this.OptionBarOptions,
+            this.configuracionesToolStripMenuItem});
             this.topMenu.Location = new System.Drawing.Point(0, 0);
             this.topMenu.Name = "topMenu";
             this.topMenu.Size = new System.Drawing.Size(800, 24);
@@ -68,8 +72,8 @@ namespace DBTools
             this.btnSaveConnection,
             this.btnImportConections});
             this.OptionBarOptions.Name = "OptionBarOptions";
-            this.OptionBarOptions.Size = new System.Drawing.Size(69, 20);
-            this.OptionBarOptions.Text = "Opciones";
+            this.OptionBarOptions.Size = new System.Drawing.Size(81, 20);
+            this.OptionBarOptions.Text = "Conexiones";
             // 
             // btnSaveConnection
             // 
@@ -96,6 +100,26 @@ namespace DBTools
             // importCSVConnections
             // 
             this.importCSVConnections.Filter = "CSV|*.csv";
+            // 
+            // configuracionesToolStripMenuItem
+            // 
+            this.configuracionesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btnConfigManagement});
+            this.configuracionesToolStripMenuItem.Name = "configuracionesToolStripMenuItem";
+            this.configuracionesToolStripMenuItem.Size = new System.Drawing.Size(106, 20);
+            this.configuracionesToolStripMenuItem.Text = "Configuraciones";
+            // 
+            // btnConfigManagement
+            // 
+            this.btnConfigManagement.Name = "btnConfigManagement";
+            this.btnConfigManagement.Size = new System.Drawing.Size(180, 22);
+            this.btnConfigManagement.Text = "Ruta Managment";
+            this.btnConfigManagement.Click += new System.EventHandler(this.btnConfigManagement_Click);
+            // 
+            // setManagementRoute
+            // 
+            this.setManagementRoute.FileName = "Ssms";
+            this.setManagementRoute.Filter = "Ssms.exe|Ssms.exe";
             // 
             // Home
             // 
@@ -126,6 +150,9 @@ namespace DBTools
         private System.Windows.Forms.ImageList iconsList;
         private System.Windows.Forms.ToolStripMenuItem btnImportConections;
         private System.Windows.Forms.OpenFileDialog importCSVConnections;
+        private System.Windows.Forms.ToolStripMenuItem configuracionesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem btnConfigManagement;
+        private System.Windows.Forms.OpenFileDialog setManagementRoute;
     }
 }
 

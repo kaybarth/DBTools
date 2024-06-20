@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -46,7 +47,7 @@ namespace DBTools
         }
         private void displayServerIcon(Servers server)
         {
-            ListViewItem newItem = new ListViewItem(server.Id + "-" + server.Name, "db");
+            ListViewItem newItem = new ListViewItem(server.Name, "db");
             newItem.Tag = server;
             // Agrega el objeto al listview
             connectionsList.Items.Add(newItem);
@@ -104,14 +105,40 @@ namespace DBTools
                 MessageBox.Show("No hay conexión con el servidor, no es posible iniciar SQL management studio", "Error de conexión");
                 return;
             }
+            if (string.IsNullOrWhiteSpace(Properties.Settings.Default.managementRoute))
+            {
+                MessageBox.Show("La ruta de SQL Server Management Studio no esta configurada", "Error");
+                return;
+            }
             DialogResult result = MessageBox.Show("¿Iniciar conexión con SQL management studio?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             // Verificar si se ha seleccionado un elemento
             if (connectionsList.SelectedItems.Count > 0 && result == DialogResult.Yes)
             {
                 Servers server = serversList.Find(s => s.Name == selectedItem.Text);
-                //StartSSMS(server.Ip, server.Port, server.User, server.Password);
+                StartSSMS(server.Ip, server.Port, server.User, server.Password);
             }
         }
+
+        public void StartSSMS(string server, string port, string userId, string password)
+        {
+            try
+            {
+                if (!string.IsNullOrWhiteSpace(port))
+                {
+                    server = server + "," + port;
+                }
+                string ManagementRoute = Properties.Settings.Default.managementRoute;
+                string arguments = $"-S {server} -d master -U {userId}";
+                Process.Start(ManagementRoute, arguments);
+                Clipboard.SetText(password);
+                MessageBox.Show("Clave copiada al portapapeles", "Clave copiada");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al iniciar SQL Server Management Studio: " + ex.Message, "Error");
+            }
+        }
+
         private void TestConnection_Click(object sender, EventArgs e)
         {
             if (connectionsList.SelectedItems.Count > 0)
@@ -154,7 +181,6 @@ namespace DBTools
                 connectionsList.Items.Remove(selectedItem);
             }
         }
-
         private void Detail_Click(object sender, EventArgs e)
         {
             // Lógica para mostrar detalles del elemento seleccionado
@@ -167,12 +193,10 @@ namespace DBTools
                 entryForm.Show();
             }
         }
-
         private void connectionsList_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
-
         private void btnImportConections_Click(object sender, EventArgs e)
         {
             if (importCSVConnections.ShowDialog() == DialogResult.OK)
@@ -231,6 +255,25 @@ namespace DBTools
             catch (Exception ex)
             {
                 MessageBox.Show("Error al leer el archivo CSV: " + ex.Message);
+            }
+        }
+        private void btnConfigManagement_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.managementRoute))
+            {
+                DialogResult result = MessageBox.Show($"Ruta actual {Properties.Settings.Default.managementRoute}, deseas actualizarla?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (result == DialogResult.No || result == DialogResult.Cancel)
+                {
+                    return;
+                }
+            }
+            if (setManagementRoute.ShowDialog() == DialogResult.OK)
+            {
+                // Obtener la ruta del archivo seleccionada
+                string filePath = setManagementRoute.FileName;
+                Properties.Settings.Default.managementRoute = filePath;
+                Properties.Settings.Default.Save();
+                MessageBox.Show("Ruta actualizada correctamente.");
             }
         }
     }

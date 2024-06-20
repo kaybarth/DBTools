@@ -8,6 +8,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace DBTools
 {
@@ -87,15 +88,10 @@ namespace DBTools
                         servers = (List<Servers>)formatter.Deserialize(cryptoStream);
                     }
                 }
-
-                //using (FileStream fileStream = new FileStream(filePath, FileMode.Open))
-                //{
-                //    BinaryFormatter formatter = new BinaryFormatter();
-                //    servers = (List<Servers>)formatter.Deserialize(fileStream);
-                //}
             }
             catch (Exception ex)
             {
+                MessageBox.Show($"Error al recuperar los servidores: {ex.Message}", "Error");
             }
             return servers;
         }

@@ -9,3 +9,7 @@ E:\Proyectos\Visual Studio\dbtools\DBTools\DBTools\bin\Debug\DBTools.exe
 E:\Proyectos\Visual Studio\dbtools\DBTools\DBTools\bin\Debug\DBTools.pdb
 E:\Proyectos\Visual Studio\dbtools\DBTools\DBTools\obj\Debug\DBTools.exe
 E:\Proyectos\Visual Studio\dbtools\DBTools\DBTools\obj\Debug\DBTools.pdb
+E:\Proyectos\Visual Studio\dbtools\DBTools\DBTools\bin\Debug\DBTools.exe.manifest
+E:\Proyectos\Visual Studio\dbtools\DBTools\DBTools\bin\Debug\DBTools.application
+E:\Proyectos\Visual Studio\dbtools\DBTools\DBTools\obj\Debug\DBTools.exe.manifest
+E:\Proyectos\Visual Studio\dbtools\DBTools\DBTools\obj\Debug\DBTools.application
