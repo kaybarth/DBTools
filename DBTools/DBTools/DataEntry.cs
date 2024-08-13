@@ -156,5 +156,25 @@ namespace DBTools
             }
             testServer = null;
         }
+
+        private async void btnTestConnection_Click_1(object sender, EventArgs e)
+        {
+            Servers testServer = new Servers(txtName.Text, txtIp.Text, txtPort.Text, txtUser.Text, txtPassword.Text);
+
+            var response = await Servers.TestConnection(testServer);
+            if (response.status)
+            {
+                MessageBox.Show("Conexión exitosa", "Conexión exitosa");
+            }
+            else
+            {
+                MessageBox.Show($"{response.msj}", "Error de conexión");
+            }
+        }
+
+        private void btnCopyUser_Click_1(object sender, EventArgs e)
+        {
+
+        }
     }
 }

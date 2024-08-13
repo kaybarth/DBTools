@@ -23,8 +23,10 @@ namespace DBTools
         public string User { get; set; }
         public string Password { get; set; }
         public bool ConnectionStatus { get; set; }
-        
-        private static string filePath = "obj.dat";
+
+
+        private static string filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "obj.dat");
+
         public Servers() { }
         public Servers(int id) { if (id >= _lastId) { _lastId = id + 1; } }
 
@@ -79,8 +81,8 @@ namespace DBTools
                 using (Aes aes = Aes.Create())
                 {
                     byte[] key = Encoding.UTF8.GetBytes("your-32-character-long-encryption-key");
-                    aes.Key = key.Take(aes.KeySize / 8).ToArray(); // Adjust key size
-                    aes.IV = new byte[aes.BlockSize / 8]; // Use a zero IV for simplicity
+                    aes.Key = key.Take(aes.KeySize / 8).ToArray();
+                    aes.IV = new byte[aes.BlockSize / 8];
 
                     using (CryptoStream cryptoStream = new CryptoStream(fileStream, aes.CreateDecryptor(), CryptoStreamMode.Read))
                     {

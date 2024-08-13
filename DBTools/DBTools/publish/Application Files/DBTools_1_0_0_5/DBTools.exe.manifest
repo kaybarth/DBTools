@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
+  <asmv1:assemblyIdentity name="DBTools.exe" version="1.0.0.5" publicKeyToken="33d3eb80e2a0a81c" language="neutral" processorArchitecture="msil" type="win32" />
+  <description asmv2:iconFile="icon.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
+  <application />
+  <entryPoint>
+    <assemblyIdentity name="DBTools" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
+    <commandLine file="DBTools.exe" parameters="" />
+  </entryPoint>
+  <trustInfo>
+    <security>
+      <applicationRequestMinimum>
+        <PermissionSet Unrestricted="true" ID="Custom" SameSite="site" />
+        <defaultAssemblyRequest permissionSetReference="Custom" />
+      </applicationRequestMinimum>
+      <requestedPrivileges xmlns="urn:schemas-microsoft-com:asm.v3">
+        <!--
+          Opciones del manifiesto de Control de cuentas de usuario
+          Si quiere cambiar el nivel de Control de cuentas de usuario de Windows, reemplace el
+          nodo requestedExecutionLevel por alguno de los siguientes.
+
+        <requestedExecutionLevel  level="asInvoker" uiAccess="false" />
+        <requestedExecutionLevel  level="requireAdministrator" uiAccess="false" />
+        <requestedExecutionLevel  level="highestAvailable" uiAccess="false" />
+
+         Si desea usar la virtualización de archivos y del Registro para la
+         compatibilidad con versiones anteriores, elimine el nodo requestedExecutionLevel.
+    -->
+        <requestedExecutionLevel level="asInvoker" uiAccess="false" />
+      </requestedPrivileges>
+    </security>
+  </trustInfo>
+  <dependency>
+    <dependentOS>
+      <osVersionInfo>
+        <os majorVersion="5" minorVersion="1" buildNumber="2600" servicePackMajor="0" />
+      </osVersionInfo>
+    </dependentOS>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="Microsoft.Windows.CommonLanguageRuntime" version="4.0.30319.0" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="DBTools.exe" size="437184">
+      <assemblyIdentity name="DBTools" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>tn1+iL6Sp9/ol8GpixWmyl/nsyOXRvUePO9WSEp2LGE=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <file name="DBTools.exe.config" size="912">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>J+bdlMTU1NDuXTlWiEVEYzC0fguRaCeWrMXUQL8GQ4U=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="icon.ico" size="58810">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>duaKKLF9xo22ZZx+0X0QVacX3DhI9+g6hNDvtCSjWvo=</dsig:DigestValue>
+    </hash>
+  </file>
+<publisherIdentity name="CN=FSIS01\kaybarth" issuerKeyHash="2a967098b38443e803753529fcb73ea6c7e5382e" /><Signature Id="StrongNameSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha256" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" /><DigestValue>xDHm87Sl3YDsAfxW7HNzAPN4GXqCjg3k46ZW9HcAg0I=</DigestValue></Reference></SignedInfo><SignatureValue>qWXD6GKjhhRQwiQUc7hG0CriY55jBqVt9QOsL1UC3LA6pBqNx3S8MBg8xbJk5O75Xhj/CRq2zG/sceEzzUPAOxYPlji/Dbgp9LWICaOaRB/JWOjFFkqUH12RYsgH7ZOvIEyRXfuoGQQ6oStcwsKfT9K+875JBrdKyBT8dYNxXak=</SignatureValue><KeyInfo Id="StrongNameKeyInfo"><KeyValue><RSAKeyValue><Modulus>sjLF75yBoszKv2I7FrlUeS/ZCrEOyBQg1i1N9CvkO5HT4fpXy3JfjTsVIuSAGU+iAYjXu1mUPuF3NPgdBL/D9SnAMZPoDSTg+8z4AQAjYHi4erCs6QRARD9Io8A+sn3j0bXoxGtmkgyiTIjnBdjnVBXiVwVH5ko8PP61qhAQmXk=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><msrel:RelData xmlns:msrel="http://schemas.microsoft.com/windows/rel/2005/reldata"><r:license xmlns:r="urn:mpeg:mpeg21:2003:01-REL-R-NS" xmlns:as="http://schemas.microsoft.com/windows/pki/2005/Authenticode"><r:grant><as:ManifestInformation Hash="42830077f456a6e3e40d8e827a1978f3007373ec56fc01ec80dda5b4f3e631c4" Description="" Url=""><as:assemblyIdentity name="DBTools.exe" version="1.0.0.5" publicKeyToken="33d3eb80e2a0a81c" language="neutral" processorArchitecture="msil" type="win32" /></as:ManifestInformation><as:SignedBy /><as:AuthenticodePublisher><as:X509SubjectName>CN=FSIS01\kaybarth</as:X509SubjectName></as:AuthenticodePublisher></r:grant><r:issuer><Signature Id="AuthenticodeSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha256" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" /><DigestValue>rX1gOQEJY9wpzNAWyY5pPTt682xrRn721FcXx3HRnJg=</DigestValue></Reference></SignedInfo><SignatureValue>jdNn8AxYM45sV9P13prbZjvMrgLOju9Q5l/F1uiBVaImD9ZQvquypk0ULGNGbBnCUZMAOTjhDWCMG9PxAkUlNdY6pvQsv9T5SBeVeooKRRtwUQxBM1ocQcYDAalGyhcQdru+d7fK8DG/Ku4eQvD0BgJvRocFk6VyzTilLsBZz+4=</SignatureValue><KeyInfo><KeyValue><RSAKeyValue><Modulus>sjLF75yBoszKv2I7FrlUeS/ZCrEOyBQg1i1N9CvkO5HT4fpXy3JfjTsVIuSAGU+iAYjXu1mUPuF3NPgdBL/D9SnAMZPoDSTg+8z4AQAjYHi4erCs6QRARD9Io8A+sn3j0bXoxGtmkgyiTIjnBdjnVBXiVwVH5ko8PP61qhAQmXk=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><X509Data><X509Certificate>MIIB1TCCAT6gAwIBAgIQMBhbWva07rdNL/29PbG+ajANBgkqhkiG9w0BAQsFADApMScwJQYDVQQDHh4ARgBTAEkAUwAwADEAXABrAGEAeQBiAGEAcgB0AGgwHhcNMjQwNjE5MTg1MjIyWhcNMjUwNjIwMDA1MjIyWjApMScwJQYDVQQDHh4ARgBTAEkAUwAwADEAXABrAGEAeQBiAGEAcgB0AGgwgZ8wDQYJKoZIhvcNAQEBBQADgY0AMIGJAoGBALIyxe+cgaLMyr9iOxa5VHkv2QqxDsgUINYtTfQr5DuR0+H6V8tyX407FSLkgBlPogGI17tZlD7hdzT4HQS/w/UpwDGT6A0k4PvM+AEAI2B4uHqwrOkEQEQ/SKPAPrJ949G16MRrZpIMokyI5wXY51QV4lcFR+ZKPDz+taoQEJl5AgMBAAEwDQYJKoZIhvcNAQELBQADgYEABgcYKi5wMulxiiCQXm920i0udOaWpyrbvry3996p1gAbW56kT0PCQ7rhq9neJ7Fccyt+EXiGxUiBiFh/f0IVnsBDZGmm1s/Jgwdn7C6pvaSc0FwTf87JFluQVYBtRB+jDxMnuEVrCts4VngrSALH1GXM1PxJwOhjnBWHGw2VLiI=</X509Certificate></X509Data></KeyInfo></Signature></r:issuer></r:license></msrel:RelData></KeyInfo></Signature></asmv1:assembly>

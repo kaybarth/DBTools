@@ -44,6 +44,7 @@ namespace DBTools
             this.btnCopyUser = new System.Windows.Forms.PictureBox();
             this.btnCopyPassword = new System.Windows.Forms.PictureBox();
             this.btnSaveHost = new System.Windows.Forms.Button();
+            this.btnTestConnection = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.btnCopyHost)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnCopyUser)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnCopyPassword)).BeginInit();
@@ -147,6 +148,7 @@ namespace DBTools
             this.btnCopyUser.Size = new System.Drawing.Size(29, 31);
             this.btnCopyUser.TabIndex = 11;
             this.btnCopyUser.TabStop = false;
+            this.btnCopyUser.Click += new System.EventHandler(this.btnCopyUser_Click_1);
             // 
             // btnCopyPassword
             // 
@@ -159,7 +161,7 @@ namespace DBTools
             // 
             // btnSaveHost
             // 
-            this.btnSaveHost.Location = new System.Drawing.Point(144, 236);
+            this.btnSaveHost.Location = new System.Drawing.Point(196, 236);
             this.btnSaveHost.Name = "btnSaveHost";
             this.btnSaveHost.Size = new System.Drawing.Size(75, 23);
             this.btnSaveHost.TabIndex = 13;
@@ -167,11 +169,22 @@ namespace DBTools
             this.btnSaveHost.UseVisualStyleBackColor = true;
             this.btnSaveHost.Click += new System.EventHandler(this.btnSaveHost_Click);
             // 
+            // btnTestConnection
+            // 
+            this.btnTestConnection.Location = new System.Drawing.Point(86, 236);
+            this.btnTestConnection.Name = "btnTestConnection";
+            this.btnTestConnection.Size = new System.Drawing.Size(104, 23);
+            this.btnTestConnection.TabIndex = 14;
+            this.btnTestConnection.Text = "Probar conexion";
+            this.btnTestConnection.UseVisualStyleBackColor = true;
+            this.btnTestConnection.Click += new System.EventHandler(this.btnTestConnection_Click_1);
+            // 
             // DataEntry
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(354, 308);
+            this.Controls.Add(this.btnTestConnection);
             this.Controls.Add(this.btnSaveHost);
             this.Controls.Add(this.btnCopyPassword);
             this.Controls.Add(this.btnCopyUser);
@@ -215,5 +228,6 @@ namespace DBTools
         private System.Windows.Forms.PictureBox btnCopyUser;
         private System.Windows.Forms.PictureBox btnCopyPassword;
         private System.Windows.Forms.Button btnSaveHost;
+        private System.Windows.Forms.Button btnTestConnection;
     }
 }

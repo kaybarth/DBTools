@@ -5,10 +5,12 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace DBTools
 {
@@ -28,7 +30,9 @@ namespace DBTools
             // Agrega accion de doble click al item
             connectionsList.DoubleClick += connectionsList_DoubleClick;
             connectionsList.MouseClick  += connectionsList_MouseClick;
-            connectionsList.LargeImageList = iconsList;
+            connectionsList.SmallImageList = smallIconList;
+            connectionsList.LargeImageList = largeIconsList;
+
             // Crea el menu contextual del servidor
             serverMenu = new ContextMenuStrip();
             serverMenu.Items.Add("Editar",          null, Editar_Click);
@@ -36,18 +40,23 @@ namespace DBTools
             serverMenu.Items.Add("Detalles",        null, Detail_Click);
             serverMenu.Items.Add("Probar conexión", null, TestConnection_Click);
 
+            connectionsList.Columns.Add("Server Name", 200);
+            connectionsList.Columns.Add("Server Ip", 100);
+            connectionsList.Columns.Add("Server Port", 50);
+
             // Mostrar los servidores en el ListView
             foreach (Servers server in serversList)
             {
                 Servers ServerItem = new Servers(server.Id);
                 // Agrega el objeto al listview
                 displayServerIcon(server);
-                
             }
         }
         private void displayServerIcon(Servers server)
         {
             ListViewItem newItem = new ListViewItem(server.Name, "db");
+            newItem.SubItems.Add(server.Ip);
+            newItem.SubItems.Add(server.Port);
             newItem.Tag = server;
             // Agrega el objeto al listview
             connectionsList.Items.Add(newItem);
@@ -131,7 +140,17 @@ namespace DBTools
                 string arguments = $"-S {server} -d master -U {userId}";
                 Process.Start(ManagementRoute, arguments);
                 Clipboard.SetText(password);
-                MessageBox.Show("Clave copiada al portapapeles", "Clave copiada");
+
+                System.Windows.Forms.ToolTip toolTip = new System.Windows.Forms.ToolTip();
+                //toolTip.IsBalloon = true;
+                int x = this.ClientSize.Width / 2;
+                int y = this.ClientSize.Height / 2;
+
+                // Ajusta la posición para que el ToolTip se muestre en el medio
+                // del formulario
+                Point screenPoint = this.PointToScreen(new Point(x, y));
+                toolTip.ToolTipTitle = "Mensaje";
+                toolTip.Show("Clave copiada al portapapeles", this, x, y, 1500);
             }
             catch (Exception ex)
             {
@@ -159,12 +178,7 @@ namespace DBTools
                 if (entryForm.ShowDialog() == DialogResult.OK)
                 {
                     Servers itemData = entryForm.ServerItem;
-                    if (itemData != null)
-                    {
-                        selectedItem.Text = (itemData.Id + "-" + itemData.Name);
-                        selectedItem.Tag = itemData;
-                        _ = UpdateConnectionStatus(selectedItem);
-                    }
+                    addConnection(itemData);
                 }
             }
         }
@@ -229,12 +243,12 @@ namespace DBTools
                             columnValues[columnTitles[i]] = values[i];
                         }
                         // Verificar que los campos requeridos estén presentes
-                        if (columnValues.TryGetValue("nombre", out string name) && !string.IsNullOrWhiteSpace(name) &&
-                            columnValues.TryGetValue("host", out string host) && !string.IsNullOrWhiteSpace(host) &&
-                            columnValues.TryGetValue("usuario", out string username) && !string.IsNullOrWhiteSpace(username) &&
-                            columnValues.TryGetValue("clave", out string password) && !string.IsNullOrWhiteSpace(password))
+                        if (columnValues.TryGetValue("Name", out string name) && !string.IsNullOrWhiteSpace(name) &&
+                            columnValues.TryGetValue("Ip", out string host) && !string.IsNullOrWhiteSpace(host) &&
+                            columnValues.TryGetValue("User", out string username) && !string.IsNullOrWhiteSpace(username) &&
+                            columnValues.TryGetValue("Password", out string password) && !string.IsNullOrWhiteSpace(password))
                         {
-                            string port = columnValues.TryGetValue("puerto", out string p) ? p : "";
+                            string port = columnValues.TryGetValue("Port", out string p) ? p : "";
 
                             // Verificar si el objeto con la combinación de host y port ya existe
                             if (!serversList.Exists(s => s.Ip == host && s.Port == port))
@@ -275,6 +289,58 @@ namespace DBTools
                 Properties.Settings.Default.Save();
                 MessageBox.Show("Ruta actualizada correctamente.");
             }
+        }
+
+        private void exportarCSV_Click(object sender, EventArgs e)
+        {
+            var csv = new StringBuilder();
+
+            var properties = typeof(Servers).GetProperties();
+            var excludedProperties = new List<string> { "Id", "ConnectionStatus" };
+
+            var filteredProperties = properties.Where(p => !excludedProperties.Contains(p.Name));
+            csv.AppendLine(string.Join(",", filteredProperties.Select(p => p.Name)));
+
+            // Filtrar y agregar los valores de cada objeto
+            foreach (var item in serversList)
+            {
+                var values = filteredProperties.Select(p => p.GetValue(item)?.ToString() ?? string.Empty);
+                csv.AppendLine(string.Join(",", values));
+            }
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Title = "Guardar conexiones";
+            saveFileDialog.Filter = "Delimitado por comas (*.csv)|*.csv";
+            saveFileDialog.DefaultExt = "csv";
+            saveFileDialog.AddExtension = true;
+            saveFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+
+            // Mostrar el diálogo y obtener el resultado
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                string filePath = saveFileDialog.FileName;
+                File.WriteAllText(filePath, csv.ToString());
+                MessageBox.Show("Conexiones exportadas correctamente");
+            }
+        }
+
+        private void view_list_Click(object sender, EventArgs e)
+        {
+            connectionsList.View = View.Details;
+            checkAllConnections();
+        }
+
+        private void view_icon_Click(object sender, EventArgs e)
+        {
+            connectionsList.View = View.LargeIcon;
+            checkAllConnections();
+        }
+        private void checkAllConnections()
+        {
+            foreach (ListViewItem item in connectionsList.Items)
+            {
+                _ = UpdateConnectionStatus(item);
+            }
+
         }
     }
 }
