@@ -1,0 +1,38 @@
+# Archivos de compilación
+bin/
+obj/
+*.exe
+*.dll
+*.pdb
+
+# Configuración de usuario y archivos temporales
+.vscode/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.sln.cache
+
+# Archivos de paquete y dependencias
+packages/
+*.nupkg
+*.snupkg
+project.lock.json
+project.assets.json
+
+# Archivos de logs
+*.log
+*.tlog
+*.log*
+
+# Archivos generados por Visual Studio
+*.vs/
+.vs/
+*.csproj.user
+
+# Archivos de publicación y despliegue
+publish/
+*.publishsettings
+
+# Archivos de configuración específicos de entorno
+appsettings.*.json
